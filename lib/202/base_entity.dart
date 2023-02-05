@@ -3,9 +3,9 @@ import 'reflection/reflection_helper.dart';
 abstract class BaseEntity {}
 
 extension BaseEntityExtension<T extends BaseEntity> on T? {
-  T? fromJson(Map<String, dynamic> json) {
-    return json.toObject<T>();
-  }
+  // T? fromJson(Map<String, dynamic> json) {
+  //   return json.toObject<T>();
+  // }
 
   Map<String, dynamic>? toJson() {
     return ReflectionHelper().toJson(this);
