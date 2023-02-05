@@ -34,11 +34,13 @@ class _SecureStorageLearnState extends State<SecureStorageLearn> {
   Future<void> removeValue() async {
     //await _cacheService.removeValue(CacheKeys.user);
     try {
-      //Map<String, dynamic> json = {"name": 'hello', "desc": 'açıklama'};
-      // var result = json.toObject<Product>();
-      // var againJson = result.toJson();
-      //int i = 1;
-    } catch (e) {}
+      Map<String, dynamic> json = {"name": 'hello', "desc": 'açıklama'};
+      var result = json.toObject<Product>();
+      var againJson = result.toJson();
+      int i = 1;
+    } catch (e) {
+      var x = 3;
+    }
   }
 
   @override

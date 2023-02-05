@@ -1,6 +1,8 @@
-import 'package:first_project/202/sheet_learn_view.dart';
+import 'package:first_project/202/cache/secure_storage/secure_storage_learn.dart';
 import 'package:first_project/202/theme/light_theme.dart';
 import 'package:flutter/material.dart';
+import '202/base_entity.dart';
+import '202/reflection/reflection_helper.dart';
 import 'main.reflectable.dart';
 
 void main() {
@@ -30,12 +32,24 @@ class MyApp extends StatelessWidget {
         //     elevation: 0,
         //   ),
         // ),
-        home: const SheetLearnView());
+        home: const SecureStorageLearn());
     // LifeCycle(
     //     message: '41qsdad',
     //     callback: (value) {
     //       print("Mainden selamlar, $value");
     //     }));
+  }
+}
+
+@reflector
+class Product extends BaseEntity {
+  String? name;
+  String? desc;
+  String? _hello;
+
+  @override
+  String toString() {
+    return '$name-$desc';
   }
 }
 

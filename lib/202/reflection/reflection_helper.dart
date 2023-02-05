@@ -1,43 +1,40 @@
 import 'package:first_project/202/base_entity.dart';
 import 'package:reflectable/reflectable.dart';
 
-class _Reflector extends Reflectable {
-  const _Reflector()
+class Reflector extends Reflectable {
+  const Reflector()
       : super(invokingCapability, typeCapability, declarationsCapability, typeRelationsCapability,
             reflectedTypeCapability); // Request the capability to invoke methods.
 }
 
-const reflector = _Reflector();
+const reflector = Reflector();
 
 class ReflectionHelper {
   T? fromJson<T extends BaseEntity>(Map<String, dynamic>? json) {
     if (json == null || json.isEmpty) return null;
+
     try {
       TypeMirror typeMirror = reflector.reflectType(T);
 
-      if (typeMirror is ClassMirror) {
-        var instance = typeMirror.newInstance('', []) as T;
-        InstanceMirror instanceMirror = reflector.reflect(instance);
-        String className = typeMirror.simpleName;
-        var declarationKeyList = typeMirror.declarations.keys.toList();
-        var jsonKeys = json.keys.map((e) => e.toLowerCase()).toList();
+      if (typeMirror is! ClassMirror) return null;
 
-        for (var declarationKey in declarationKeyList) {
-          if (declarationKey != className && jsonKeys.contains(declarationKey.toLowerCase())) {
-            DeclarationMirror declarationMirror =
-                typeMirror.declarations.entries.firstWhere((element) => element.key == declarationKey).value;
+      var instance = typeMirror.newInstance('', []) as T;
+      InstanceMirror instanceMirror = reflector.reflect(instance);
 
-            if (declarationMirror is VariableMirror) {
-              instanceMirror.invokeSetter(declarationKey, json[declarationKey]);
-            }
-          }
+      List<String> jsonKeys = json.keys.map((e) => e.toLowerCase()).toList();
+
+      for (var declaration in typeMirror.declarations.entries) {
+        String declarationKey = declaration.key.toLowerCase();
+        DeclarationMirror declarationMirror = declaration.value;
+
+        if (declarationMirror is VariableMirror && jsonKeys.contains(declarationKey.toLowerCase())) {
+          instanceMirror.invokeSetter(declarationKey, json[declarationKey]);
         }
-
-        return instance;
       }
 
-      return null;
-    } on Exception {
+      return instance;
+    } on Exception catch (e) {
+      var x = e;
       return null;
     }
   }
@@ -48,20 +45,15 @@ class ReflectionHelper {
     try {
       InstanceMirror instanceMirror = reflector.reflect(item);
       ClassMirror classMirror = instanceMirror.type;
-      String className = classMirror.simpleName;
-      var declarationKeyList =
-          classMirror.declarations.entries.where((element) => !element.value.isPrivate).map((e) => e.key).toList();
 
       Map<String, dynamic> json = {};
 
-      for (var declarationKey in declarationKeyList) {
-        if (declarationKey != className) {
-          DeclarationMirror declarationMirror =
-              classMirror.declarations.entries.firstWhere((element) => element.key == declarationKey).value;
+      for (var declaration in classMirror.declarations.entries) {
+        String declarationKey = declaration.key;
+        DeclarationMirror declarationMirror = declaration.value;
 
-          if (declarationMirror is VariableMirror) {
-            json[declarationKey] = instanceMirror.invokeGetter(declarationKey);
-          }
+        if (!declarationMirror.isPrivate && declarationMirror is VariableMirror) {
+          json[declarationKey] = instanceMirror.invokeGetter(declarationKey);
         }
       }
 
