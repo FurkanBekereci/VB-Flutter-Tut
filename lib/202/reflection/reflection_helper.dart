@@ -1,13 +1,13 @@
 import 'package:first_project/202/base_entity.dart';
 import 'package:reflectable/reflectable.dart';
 
-class Reflector extends Reflectable {
-  const Reflector()
+class _Reflector extends Reflectable {
+  const _Reflector()
       : super(invokingCapability, typeCapability, declarationsCapability, typeRelationsCapability,
             reflectedTypeCapability); // Request the capability to invoke methods.
 }
 
-const reflector = Reflector();
+const reflector = _Reflector();
 
 class ReflectionHelper {
   T? fromJson<T extends BaseEntity>(Map<String, dynamic>? json) {
