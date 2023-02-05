@@ -17,22 +17,24 @@ class Notes extends StatelessWidget {
         padding: NotePaddings.horizontalPadding,
         child: Column(
           children: [
-            PngImageView(name: ImageItems().appleWithBookName, height: 200,),
+            PngImageView(
+              name: ImageItems().appleWithBookName,
+              height: 200,
+            ),
             _TitleView(title: title),
             Padding(
               padding: NotePaddings.verticalPadding,
-              child: _SubtitleView(text: description * 10),
+              child: _SubtitleView(
+                text: description * 10,
+                textAlign: TextAlign.center,
+              ),
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: (){}, 
-              child: SizedBox(
-                height: 50,
-                child: Center(child: Text(_createNote))
-              )
-            ),
-            TextButton(onPressed: (){}, child: Text(_importNotes)),
-            const SizedBox(height: 50,)
+            ElevatedButton(onPressed: () {}, child: SizedBox(height: 50, child: Center(child: Text(_createNote)))),
+            TextButton(onPressed: () {}, child: Text(_importNotes)),
+            const SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),
@@ -41,9 +43,7 @@ class Notes extends StatelessWidget {
 }
 
 class _SubtitleView extends StatelessWidget {
-  const _SubtitleView(
-      {Key? key, required this.text, this.textAlign = TextAlign.center})
-      : super(key: key);
+  const _SubtitleView({Key? key, required this.text, this.textAlign = TextAlign.center}) : super(key: key);
 
   final String text;
   final TextAlign textAlign;
@@ -72,16 +72,12 @@ class _TitleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: Theme.of(context)
-          .textTheme
-          .headline5
-          ?.copyWith(color: Colors.black, fontWeight: FontWeight.w800),
+      style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black, fontWeight: FontWeight.w800),
     );
   }
 }
 
 class NotePaddings {
-  static EdgeInsets horizontalPadding =
-      const EdgeInsets.symmetric(horizontal: 20);
+  static EdgeInsets horizontalPadding = const EdgeInsets.symmetric(horizontal: 20);
   static EdgeInsets verticalPadding = const EdgeInsets.symmetric(vertical: 10);
 }

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ColorDemo extends StatefulWidget {
   ColorDemo({Key? key}) : super(key: key) {
     streamController = StreamController.broadcast();
@@ -39,7 +40,7 @@ class _ColorDemoState extends State<ColorDemo> {
 
   void subscribeToOutsideSignal() {
     _$subscription = widget.streamController.stream.listen((event) {
-      print("üyeyim hacı...");
+      // print("üyeyim hacı...");
       setStateWhenOutsideAction();
     });
   }
@@ -66,7 +67,7 @@ class _ColorDemoState extends State<ColorDemo> {
 
   @override
   void dispose() {
-    print("disposa girdiysen 3 kere tıkla");
+    // print("disposa girdiysen 3 kere tıkla");
     cancelSubscriptionOfOutsideSignal();
     super.dispose();
   }

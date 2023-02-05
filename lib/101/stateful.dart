@@ -38,7 +38,7 @@ class _StatefulState extends State<Stateful> {
   }
 
   FloatingActionButton _incrementButton() {
-    print('Hello from increment');
+    // print('Hello from increment');
     return FloatingActionButton(
       onPressed: () {
         _updateCounter(true);

@@ -58,9 +58,9 @@ class _PageLearnState extends State<PageLearn> {
 }
 
 class _DurationUtility {
-  static const durationLow = Duration(seconds: 1);
+  // static const durationLow = Duration(seconds: 1);
   static const durationNormal = Duration(milliseconds: 500);
-  static const durationHigh = Duration(milliseconds: 250);
+  // static const durationHigh = Duration(milliseconds: 250);
 }
 
 /**

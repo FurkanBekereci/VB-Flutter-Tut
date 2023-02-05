@@ -21,14 +21,14 @@ class _LifeCycleState extends State<LifeCycle> {
     _message = widget.message;
     _isOdd = widget.message.length.isOdd;
     _setCorrectName();
-    print('a');
+    // print('a');
   }
 
   //Second call
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('b');
+    // print('b');
   }
 
   //Parent interference
@@ -36,7 +36,7 @@ class _LifeCycleState extends State<LifeCycle> {
   void didUpdateWidget(covariant LifeCycle oldWidget) {
     widget.callback(++i);
     super.didUpdateWidget(oldWidget);
-    print('c');
+    // print('c');
   }
 
   //On component died
